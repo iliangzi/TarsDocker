@@ -31,8 +31,8 @@ RUN yum -y install https://repo.mysql.com/yum/mysql-8.0-community/el/7/x86_64/my
 	&& cd /root && rm -rf mysql-connector* \
 	&& mkdir -p /usr/local/mysql \ 
 	#&& ln -sb /usr/lib64/mysql /usr/local/mysql/lib 
-	&& ln -sb /usr/include/mysql /usr/local/mysql/include && echo "/usr/local/mysql/lib/" >> /etc/ld.so.conf && ldconfig \
-	&& cd /usr/local/mysql/lib/ && rm -f libmysqlclient.a && ln -s libmysqlclient.so.*.*.* libmysqlclient.a \
+	#&& ln -sb /usr/include/mysql /usr/local/mysql/include && echo "/usr/local/mysql/lib/" >> /etc/ld.so.conf && ldconfig \
+	#&& cd /usr/local/mysql/lib/ && rm -f libmysqlclient.a && ln -s libmysqlclient.so.*.*.* libmysqlclient.a \
 	# Get latest tars src
 	&& cd /root/ && git clone https://github.com/TarsCloud/Tars \
 	&& cd /root/Tars/ && git submodule update --init --recursive framework \
