@@ -4,6 +4,8 @@ on:
   push:
     branches: 
       - master
+      - .github/workflows/tars.yml
+      - tars/**
       
 jobs:
 
@@ -13,5 +15,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build tars image
-      run: docker build ./tars/ --file ./tars/Dockerfile --tag tars:$(date +%s)
+    - name: Docker Login
+      run: docker login -u elvisshi -p ${{ secrets.DOCKERHUB_LOGIN_PASSWO  RD }}
+    - name: Build and push tars image
+      run: |
+        TAG=$(date +%Y%m%d%H%M%S)
+        docker build ./tars/ --file ./tars/Dockerfile --tag elvisshi/tars:${TAG}
+        docker push elvisshi/tars:${TAG}

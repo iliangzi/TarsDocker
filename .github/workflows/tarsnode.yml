@@ -4,7 +4,9 @@ on:
   push:
     branches: 
       - master
-      
+      paths:
+      - .github/workflows/tarsnode.yml
+      - tarsnode/**
 jobs:
 
   build:
@@ -17,6 +19,6 @@ jobs:
       run: docker login -u elvisshi -p ${{ secrets.DOCKERHUB_LOGIN_PASSWORD }}
     - name: Build and Push tarsnode image
       run: |
-        TAG=$(date +%s)
+        TAG=$(date +%Y%m%d%H%M%S)
         docker build ./tarsnode/ --file ./tarsnode/Dockerfile --tag elvisshi/tarsnode:${TAG}
         docker push elvisshi/tarsnode:${TAG}

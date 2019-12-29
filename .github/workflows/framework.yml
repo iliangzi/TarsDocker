@@ -4,6 +4,9 @@ on:
   push:
     branches: 
       - master
+      paths:
+      - .github/workflows/framework.yml
+      - framework/**
 jobs:
 
   build:
@@ -12,5 +15,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build framework image
-      run: docker build ./framework/ --file ./framework/Dockerfile --tag framework:$(date +%s)
+    - name: Docker Login
+        run: docker login -u elvisshi -p ${{ secrets.DOCKERHUB_LOGIN_PASSWO  RD }}
+    - name: Build and Push framework image
+      run: |
+        TAG=$(date +%Y%m%d%H%M%S)
+        docker build ./framework/ --file ./framework/Dockerfile --tag elvisshi/framework:${TAG}
