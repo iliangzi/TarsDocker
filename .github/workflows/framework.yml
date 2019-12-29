@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Docker Login
-        run: docker login -u elvisshi -p ${{ secrets.DOCKERHUB_LOGIN_PASSWO  RD }}
+      run: docker login -u elvisshi -p ${{ secrets.DOCKERHUB_LOGIN_PASSWO  RD }}
     - name: Build and Push framework image
       run: |
         TAG=$(date +%Y%m%d%H%M%S)
