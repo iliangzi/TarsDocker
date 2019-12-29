@@ -15,7 +15,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: Docker Login
       run: docker login -u elvisshi -p ${{ secrets.DOCKERHUB_LOGIN_PASSWORD }}
-    - name: Build tarsnode image
-      run: docker build ./tarsnode/ --file ./tarsnode/Dockerfile --tag elvisshi/tarsnode:master
-    - name: Push the Docker Image
-      run: docker push elvisshi/tarsnode:master
+    - name: Build and Push tarsnode image
+      run: |
+        TAG=$(date +%s)
+        docker build ./tarsnode/ --file ./tarsnode/Dockerfile --tag elvisshi/tarsnode:${TAG}
+        docker push elvisshi/tarsnode:${TAG}
