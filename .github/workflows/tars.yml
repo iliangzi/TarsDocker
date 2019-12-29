@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Docker Login
-      run: docker login -u elvisshi -p ${{ secrets.DOCKERHUB_LOGIN_PASSWO  RD }}
+      run: docker login -u elvisshi -p ${{ secrets.DOCKERHUB_LOGIN_PASSWORD }}
     - name: Build and push tars image
       run: |
         TAG=$(date +%Y%m%d%H%M%S)
