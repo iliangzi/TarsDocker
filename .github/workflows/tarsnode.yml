@@ -4,9 +4,9 @@ on:
   push:
     branches: 
       - master
-      paths:
-      - .github/workflows/tarsnode.yml
-      - tarsnode/**
+    paths:
+    - .github/workflows/tarsnode.yml
+    - tarsnode/**
 jobs:
 
   build:
