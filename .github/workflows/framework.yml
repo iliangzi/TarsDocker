@@ -4,9 +4,9 @@ on:
   push:
     branches: 
       - master
-      paths:
-      - .github/workflows/framework.yml
-      - framework/**
+    paths:
+    - .github/workflows/framework.yml
+    - framework/**
 jobs:
 
   build:

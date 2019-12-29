@@ -4,8 +4,9 @@ on:
   push:
     branches: 
       - master
-      - .github/workflows/tars.yml
-      - tars/**
+    paths:
+    - .github/workflows/tars.yml
+    - tars/**
       
 jobs:
 
