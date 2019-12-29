@@ -64,7 +64,13 @@ RUN	yum install -y mysql mysql-devel \
 	&& echo "CLASSPATH=\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib/tools.jar" >> /root/.bashrc \
 	&& echo "PATH=\$JAVA_HOME/bin:\$PATH" >> /root/.bashrc \
 	&& echo "export PATH JAVA_HOME CLASSPATH" >> /root/.bashrc \
-	&& yum clean all && rm -rf /var/cache/yum
+	&& yum clean all && rm -rf /var/cache/yum \
+    # 安装kafka客户端
+    && cd /root && git clone https://github.com/edenhill/librdkafka.git \
+    && cd librdkafka \
+    && ./configure --prefix /usr && make && make install \
+    && echo "/usr/lib/" >> /etc/ld.so.conf && ldconfig \
+    && rm -rf /root/librdkafka
 
 # Whether mount Tars process path to outside, default to false (support windows)
 # ENV MOUNT_DATA false
