@@ -16,24 +16,45 @@
 # * specific language governing permissions and limitations under the License.
 # */
 
-MachineIp=$(ip addr | grep inet | grep eth0 | awk '{print $2;}' | sed 's|/.*$||')
+if [ "$DOMAIN" != "" ]; then
+	MachineIp=${DOMAIN}
+else
+	MachineIp=$(ip addr | grep inet | grep eth0 | awk '{print $2;}' | sed 's|/.*$||')
+fi
+
+mkdir -p /usr/local/app/tars/
+mkdir -p /usr/local/app/tars/tarsnode
+
+mkdir -p /data/tars/app_log
+mkdir -p /data/tars/tarsnode-data
+
+ln -s /data/tars/app_log /usr/local/app/tars/app_log 
+ln -s /data/tars/tarsnode-data /usr/local/app/tars/tarsnode/data
+
+trap 'exit' SIGTERM SIGINT
 
 while [ 1 ]
 do
 	rm -rf get_tarsnode.sh
 
-	wget -O get_tarsnode.sh "${WEBHOST}/get_tarsnode?ip=${MachineIp}&runuser=root"
+	wget -O get_tarsnode.sh "${WEB_HOST}/get_tarsnode?ip=${MachineIp}&runuser=root"
 
 	sleep 1
 
 	if [ -f "get_tarsnode.sh" ]; then
 		
+		echo "get_tarsnode.sh: --------------------------------------------------------"
+		cat get_tarsnode.sh
+
 		chmod a+x get_tarsnode.sh
 
 		./get_tarsnode.sh
 
 		if [ -f "/usr/local/app/tars/tarsnode/util/check.sh" ]; then
 
+			echo "tarsnode.conf: --------------------------------------------------------"
+
+			cat /usr/local/app/tars/tarsnode/conf/tars.tarsnode.config.conf 
 			echo "install tarsnode succ, check tarsnode alive"
 
 			while [ 1 ]
