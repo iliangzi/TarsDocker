@@ -42,7 +42,8 @@ RUN	yum install -y mysql mysql-devel \
     #Set php.ini config
     && echo "error_log = /var/log/php_error.log" >> /etc/php.ini && echo "max_input_vars = 10000" >> /etc/php.ini && echo "date.timezone = Asia/Shanghai" >> /etc/php.ini \
     #Add wkhtml2pdf
-    && yum -y install https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
+    #&& yum -y install https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
+    && yum -y install wkhtmltopdf \
 	# Install tars go
 	&& go get github.com/TarsCloud/TarsGo/tars \
 	&& cd $GOPATH/src/github.com/TarsCloud/TarsGo/tars/tools/tars2go && go build . \
