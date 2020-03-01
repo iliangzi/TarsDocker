@@ -13,8 +13,7 @@ RUN yum makecache fast \
 	&& mkdir -p /usr/local/mysql && ln -s /usr/lib64/mysql /usr/local/mysql/lib && ln -s /usr/include/mysql /usr/local/mysql/include && echo "/usr/local/mysql/lib/" >> /etc/ld.so.conf && ldconfig  \
 #	&& cd /usr/local/mysql/lib/ && rm -f libmysqlclient.a && ls -l /usr/local/mysql/lib/ && ln -s libmysqlclient.so.*.*.* libmysqlclient.a 
 	&& cd /root/ && git clone https://github.com/TarsCloud/Tars \
-    && git checkout v1.9.0 \
-	&& cd /root/Tars/ && git submodule update --init --recursive framework \
+	&& cd /root/Tars/ && git checkout v1.9.0 && git submodule update --init --recursive framework \
 	&& git submodule update --init --recursive web \
 	&& mkdir -p /data && chmod u+x /root/Tars/framework/build/build.sh \
 	&& cd /root/Tars/framework/build/ && ./build.sh all \
