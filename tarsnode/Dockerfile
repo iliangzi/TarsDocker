@@ -19,7 +19,7 @@ RUN	yum install -y mysql mysql-devel \
 	&& yum -y install yum-utils psmisc net-tools wget unzip telnet zlib-devel openssl-devel git gcc gcc-c++ \
 	&& yum -y install golang make cmake iproute which glibc-devel ncurses-devel \
 	&& yum -y install protobuf-devel kde-l10n-Chinese glibc-common \
-	&& yum -y install php php-cli php-devel php-mcrypt php-cli php-gd php-curl php-mysql php-zip php-fileinfo php-phpiredis php-seld-phar-utils tzdata  \
+	&& yum -y install php php-cli php-devel php-mcrypt php-cli php-gd php-curl php-mysql php-zip php-fileinfo php-phpiredis php-seld-phar-utils tzdata  php-xmlwriter \
 	#install mysql lib
 	&& mkdir -p /usr/local/mysql && ln -s /usr/lib64/mysql /usr/local/mysql/lib && ln -s /usr/include/mysql /usr/local/mysql/include && echo "/usr/local/mysql/lib/" >> /etc/ld.so.conf && ldconfig \
 	# && cd /usr/local/mysql/lib/ && rm -f libmysqlclient.a && ls -l /usr/local/mysql/lib/ && ln -s libmysqlclient.so.*.*.* libmysqlclient.a \
@@ -39,6 +39,10 @@ RUN	yum install -y mysql mysql-devel \
 	&& echo "extension=swoole.so" > /etc/php.d/swoole.ini \
 	&& cd /root && rm -rf v2.2.0.tar.gz swoole-src-2.2.0 \
 	&& mkdir -p /root/phptars && cp -f /root/Tars/php/tars2php/src/tars2php.php /root/phptars \
+    #Set php.ini config
+    && echo "error_log = /var/log/php_error.log" >> /etc/php.ini && echo "max_input_vars = 10000" >> /etc/php.ini && echo "date.timezone = Asia/Shanghai" >> /etc/php.ini \
+    #Add wkhtml2pdf
+    && rpm -ivh https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
 	# Install tars go
 	&& go get github.com/TarsCloud/TarsGo/tars \
 	&& cd $GOPATH/src/github.com/TarsCloud/TarsGo/tars/tools/tars2go && go build . \
